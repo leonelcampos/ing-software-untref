@@ -23,7 +23,7 @@ public class Stepdefs {
 	}
 
 	@Then("^gana jugador(\\d+)$")
-	public void gana_jugador(int numeroDeJugador) throws Throwable {
+	public void gana_jugador1(int numeroDeJugador) throws Throwable {
 		Assert.assertEquals(numeroDeJugador, manoJugador1.compararCon(manoJugador2));
 	}
 	
@@ -45,5 +45,13 @@ public class Stepdefs {
 	public void jugador2_juega_TIJERA() throws Throwable {
 		manoJugador2 = new Tijera(2);
 	}
+	
+//	 Scenario: Papel vs Piedra
+	@When("^jugador1 juega PAPEL$")
+	public void jugador1_juega_PAPEL() throws Throwable {
+		manoJugador1 = new Papel(1);
+	}
+	
+//	Scenario: PAPEL vs PAPEL
 
 }
