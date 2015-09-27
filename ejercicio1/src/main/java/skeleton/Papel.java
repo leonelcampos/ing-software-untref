@@ -28,4 +28,9 @@ public class Papel implements Mano{
 		return numeroDeJugador;
 	}
 
+	@Override
+	public int compararConTijera(Mano mano) {
+		return mano.getNumeroDeJugador();
+	}
+
 }

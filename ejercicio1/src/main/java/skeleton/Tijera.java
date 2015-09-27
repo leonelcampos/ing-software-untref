@@ -11,7 +11,7 @@ public class Tijera implements Mano{
 
 	@Override
 	public int compararCon(Mano mano) {
-		return mano.compararCon(this);
+		return mano.compararConTijera(this);
 	}
 
 	@Override
@@ -27,6 +27,11 @@ public class Tijera implements Mano{
 	@Override
 	public int getNumeroDeJugador() {
 		return numeroDeJugador;
+	}
+	
+	@Override
+	public int compararConTijera(Mano mano) {
+		return 0;
 	}
 
 }

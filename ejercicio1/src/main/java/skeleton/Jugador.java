@@ -1,6 +1,4 @@
-package skeleton.jugador;
-
-import skeleton.Mano;
+package skeleton;
 
 public class Jugador {
 

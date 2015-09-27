@@ -52,6 +52,9 @@ public class Stepdefs {
 		manoJugador1 = new Papel(1);
 	}
 	
-//	Scenario: PAPEL vs PAPEL
-
+//	  Scenario: Tijera vs Piedra
+	@When("^jugador1 juega TIJERA$")
+	public void jugador1_juega_TIJERA() throws Throwable {
+		manoJugador1 = new Tijera(1);
+	}
 }

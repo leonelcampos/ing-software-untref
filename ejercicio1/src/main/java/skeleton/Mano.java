@@ -10,4 +10,6 @@ public interface Mano {
 	
 	int getNumeroDeJugador();
 
+	int compararConTijera(Mano mano);
+
 }

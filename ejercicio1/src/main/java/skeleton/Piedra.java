@@ -28,4 +28,9 @@ public class Piedra implements Mano{
 		return numeroDeJugador;
 	}
 
+	@Override
+	public int compararConTijera(Mano mano) {
+		return numeroDeJugador;
+	}
+
 }
