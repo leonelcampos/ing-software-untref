@@ -1,88 +1,74 @@
-<project name="ejemplo1" basedir="." default="runcukes">
-    <property name="repo" value="https://repo1.maven.org/maven2"/>
 
-    <property name="cucumber-jvm.version" value="1.2.4"/>
-    <property name="cucumber-jvm-deps.version" value="1.0.5"/>
-    <property name="gherkin.version" value="2.12.2"/>
-    <property name="cucumber-html.version" value="0.2.3"/>
-    <property name="junit.version" value="4.12"/>
-    <property name="jars" value="lib"/>
-
-    <target name="download">
-        <mkdir dir="${jars}"/>
-        <get src="${repo}/info/cukes/cucumber-core/${cucumber-jvm.version}/cucumber-core-${cucumber-jvm.version}.jar"
-             dest="${jars}/cucumber-core-${cucumber-jvm.version}.jar"/>
-        <get src="${repo}/info/cukes/cucumber-java/${cucumber-jvm.version}/cucumber-java-${cucumber-jvm.version}.jar"
-             dest="${jars}/cucumber-java-${cucumber-jvm.version}.jar"/>
-        <get src="${repo}/info/cukes/cucumber-junit/${cucumber-jvm.version}/cucumber-junit-${cucumber-jvm.version}.jar"
-             dest="${jars}/cucumber-junit-${cucumber-jvm.version}.jar"/>
-        <get src="${repo}/info/cukes/cucumber-jvm-deps/${cucumber-jvm-deps.version}/cucumber-jvm-deps-${cucumber-jvm-deps.version}.jar"
-             dest="${jars}/cucumber-jvm-deps-${cucumber-jvm-deps.version}.jar"/>
-        <get src="${repo}/info/cukes/gherkin/${gherkin.version}/gherkin-${gherkin.version}.jar"
-             dest="${jars}/gherkin-${gherkin.version}.jar"/>
-        <get src="${repo}/info/cukes/cucumber-html/${cucumber-html.version}/cucumber-html-${cucumber-html.version}.jar"
-             dest="${jars}/cucumber-html-${cucumber-html.version}.jar"/>
-        <get src="${repo}/junit/junit/${junit.version}/junit-${junit.version}.jar"
-             dest="${jars}/junit-${junit.version}.jar"/>
-    </target>
-
-    <target name="classpath">
-        <path id="classpath">
-            <fileset dir="${jars}">
-                <include name="**/*.jar"/>
-            </fileset>
-            <pathelement location="src/test/resources"/>
-            <pathelement location="target/classes"/>
-            <pathelement location="target/test-classes"/>
-        </path>
-    </target>
-
-    <target name="compile" depends="classpath">
-        <mkdir dir="target/classes"/>
-        <javac srcdir="src/main/java" destdir="target/classes" classpathref="classpath" includeantruntime="false"/>
-    </target>
-
-    <target name="compile-test" depends="compile,classpath">
-        <mkdir dir="target/test-classes"/>
-        <javac srcdir="src/test/java" destdir="target/test-classes" classpathref="classpath" includeantruntime="false"/>
-    </target>
-
-    <target name="runcukes" depends="compile-test">
-        <mkdir dir="target/cucumber-junit-report"/>
-        <java classname="cucumber.api.cli.Main" fork="true" failonerror="false" resultproperty="cucumber.exitstatus">
-            <classpath refid="classpath"/>
-            <arg value="--plugin"/>
-            <arg value="junit:target/cucumber-junit-report.xml"/>
-            <arg value="--plugin"/>
-            <arg value="pretty"/>
-            <arg value="--plugin"/>
-            <arg value="html:target/cucumber-html-report"/>
-            <arg value="--glue"/>
-            <arg value="skeleton"/>
-            <arg value="src/test/resources"/>
-        </java>
-
-        <junitreport todir="target/cucumber-junit-report">
-            <fileset dir="target">
-                <include name="cucumber-junit-report.xml"/>
-            </fileset>
-            <report format="frames" todir="target/cucumber-junit-report"/>
-        </junitreport>
-
-        <fail message="Cucumber failed">
-            <condition>
-                <not>
-                    <equals arg1="${cucumber.exitstatus}" arg2="0"/>
-                </not>
-            </condition>
-        </fail>
-    </target>
-
-    <target name="clean">
-        <delete dir="target"/>
-    </target>
-
-    <target name="clobber" depends="clean">
-        <delete dir="${jars}"/>
-    </target>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="ejercicio1" basedir="." default="test">
+<property name="build" location="build" />
+<property name="libs" location="libs" />
+<property name="classes.dir" location="build" />
+<property name="reports.dir" location="${build}/reports" />
+<property name="reports.xml.dir" location="${reports.dir}/junit-xml" />
+<property name="reports.html.dir" location="${reports.dir}/junit-html" />
+<property name="src.dir" location="src" />
+<!-- Ivy customization -->
+<property name="ivy.install.version" value="2.2.0"/>
+<property name="ivy.jar.dir" value="${libs}/"/>
+<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+<!-- End of 'Ivy customization -->
+<path id="classpath">
+<fileset dir="${libs}">
+<include name="*.jar" />
+</fileset>
+<pathelement location="${build}" />
+<pathelement location="${build}/tests" />
+</path>
+<target name="setup">
+<delete dir="${build}" />
+<mkdir dir="${build}"/>
+<mkdir dir="${build}/classes"/>
+<mkdir dir="${build}/tests"/>
+</target>
+<target name="compilar.aplicacion" depends="setup, resolve">
+<javac srcdir="src" destdir="${build}" includeantruntime="false" debug="yes">
+</javac>
+</target>
+<target name="compilar.tests" depends="compilar.aplicacion">
+<javac srcdir="test" destdir="${build}/tests" includeantruntime="false" debug="yes">
+<classpath refid="classpath" />
+</javac>
+</target>
+<target name="ejecutar.tests" depends="compilar.tests">
+<junit fork="yes" printsummary="yes" haltonfailure="yes">
+<classpath location="${build}" />
+<classpath refid="classpath" />
+<formatter type="plain"/>
+<test name="${testcase}" if="testcase" />
+<batchtest unless="testcase">
+<fileset dir="${build}/tests" includes="**/*Test.class" />
+</batchtest>
+</junit>
+</target>
+<target name="init">
+<mkdir dir="${reports.xml.dir}" />
+<mkdir dir="${reports.html.dir}" />
+</target>
+<target name="test" depends="ejecutar.tests" description="Compile, run the tests and generate JUnit reports."/>
+<!-- Ivy installation -->
+<target name="download-ivy" unless="skip.download">
+<mkdir dir="${ivy.jar.dir}"/>
+<!-- download Ivy from web site so that it can be used even
+without any special installation -->
+<echo message="installing ivy..."/>
+<get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true"/>
+</target>
+<target name="install-ivy" depends="download-ivy" description="--> install ivy">
+<path id="ivy.lib.path">
+<fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+</path>
+<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+</target>
+<!-- End of 'Ivy installation -->
+<!-- Resolve dependencies -->
+<target name="resolve" depends="install-ivy" description="--> retrieve dependencies with ivy">
+<ivy:retrieve pattern="${libs}/[artifact]-[type]-[revision].[ext]" type="jar"/>
+</target>
+<!-- End of 'Resolve dependencies -->
 </project>
