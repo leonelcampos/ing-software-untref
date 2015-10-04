@@ -65,7 +65,7 @@ Then estado es "****"
 And me quedan 0 vidas
 And resultado "El juego ha terminado. Estas ahorcado"
 
-Scenario: Arriesgo una "A" y asierto 1 letra
+Scenario: Arriesgo una "A" mayuscula y acierto 1 letra
 Given la palabra secreta es "auto"
 And tengo 7 vidas
 And estado actual es "****"
@@ -74,7 +74,7 @@ Then estado es "a***"
 And me quedan 7 vidas
 And resultado "Sigo vivo"
 
-Scenario: Arriesgo una "a" y asierto 1 letra
+Scenario: Arriesgo una "a" minuscula y acierto 1 letra
 Given la palabra secreta es "auto"
 And tengo 7 vidas
 And estado actual es "****"
@@ -83,7 +83,7 @@ Then estado es "a***"
 And me quedan 7 vidas
 And resultado "Sigo vivo"
 
-Scenario: Arriesgo una "o" y asierto 1 letra más
+Scenario: Arriesgo una "o" y acierto 1 letra más
 Given la palabra secreta es "auto"
 And tengo 1 vidas
 And estado actual es "a***"
@@ -92,7 +92,7 @@ Then estado es "a**o"
 And me quedan 1 vidas
 And resultado "Sigo vivo"
 
-Scenario: Arriesgo una "t" y asierto 1 letra más
+Scenario: Arriesgo una "t" y acierto 1 letra más
 Given la palabra secreta es "auto"
 And tengo 1 vidas
 And estado actual es "a**o"
@@ -110,7 +110,7 @@ Then estado es "auto"
 And me quedan 7 vidas
 And resultado "El juego ha terminado. Has ganado!"
 
-Scenario: Arriesgo una "r" siendo la palabra carro y asierto 2 letras 
+Scenario: Arriesgo una "r" siendo la palabra carro y acierto 2 letras 
 Given la palabra secreta es "carro"
 And tengo 1 vidas
 And estado actual es "*****"
