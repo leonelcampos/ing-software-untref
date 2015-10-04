@@ -8,6 +8,7 @@ import cucumber.api.java.en.When;
 
 public class Stepdefs {
 	
+	private static final String LETRA_PARA_ERRAR = "*";
 	private Ahorcado ahorcado;
 	
 	@Given("^la palabra secreta es \"(.*?)\"$")
@@ -17,7 +18,18 @@ public class Stepdefs {
 	
 	@Given("^tengo (\\d+) vidas$")
 	public void tengo_vidas(int vidas) throws Throwable {
-		 Assert.assertEquals(vidas, ahorcado.getVidas());
+		int cantidadDeVecesAErrar = ahorcado.getVidas() - vidas;
+		
+		errarLetra(cantidadDeVecesAErrar);
+		
+		Assert.assertEquals(vidas, ahorcado.getVidas());
+	}
+
+	private void errarLetra(int cantidadDeVecesAErrar) {
+		
+		for(int i = 0; i < cantidadDeVecesAErrar; i++){
+			ahorcado.arriesgarLetra(LETRA_PARA_ERRAR);
+		}
 	}
 
 	@When("^arriesgo \"(.*?)\"$")
@@ -34,4 +46,11 @@ public class Stepdefs {
 	public void me_quedan_vidas(int vidas) throws Throwable {
 	    Assert.assertEquals(vidas, ahorcado.getVidas());
 	}
+	
+	@Then("^resultado \"(.*?)\"$")
+	public void resultado(String resultado) throws Throwable {
+		 Assert.assertEquals(resultado, ahorcado.getEstado());
+	}
+
+
 }

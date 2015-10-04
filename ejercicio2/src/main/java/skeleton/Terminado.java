@@ -32,4 +32,14 @@ public class Terminado implements AhorcadoState{
 		return vidas;
 	}
 
+	public String getEstado() {
+		if(vidas > 0){
+			return "El juego ha terminado. Has ganado!";
+		}else{
+			return "El juego ha terminado. Estas ahorcado";
+		}
+	}
+	
+	
+
 }

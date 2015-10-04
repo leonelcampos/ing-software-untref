@@ -23,12 +23,16 @@ public class Ahorcado {
 			estado = new Terminado(palabraSecreta , estado.getEstadoPalabra(), estado.getVidas());
 		}
 	}
-
+	
 	public String getEstadoPalabra(){
 		return estado.getEstadoPalabra();
 	}
 	
 	public int getVidas(){
 		return estado.getVidas();
+	}
+	
+	public String getEstado(){
+		return estado.getEstado();
 	}
 }

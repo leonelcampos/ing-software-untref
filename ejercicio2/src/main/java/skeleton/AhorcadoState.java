@@ -8,4 +8,6 @@ public interface AhorcadoState {
 
 	int getVidas();
 
+	String getEstado();
+
 }

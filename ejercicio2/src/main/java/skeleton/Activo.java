@@ -57,4 +57,8 @@ public class Activo implements AhorcadoState{
 		return vidas;
 	}
 
+	public String getEstado() {
+		return "Sigo vivo";
+	}
+
 }
