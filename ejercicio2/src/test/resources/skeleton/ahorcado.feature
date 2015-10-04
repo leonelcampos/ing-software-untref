@@ -1,6 +1,6 @@
 Feature: Juego Ahorcado
 
-Scenario: Arriesgo una "X" y pierdo 1 vida
+Scenario: Arriesgo una "X" teniendo 7 vidas entonces me quedo con 6 vidas
 Given la palabra secreta es "auto"
 And tengo 7 vidas
 And estado actual es "****"
@@ -9,7 +9,7 @@ Then estado es "****"
 And me quedan 6 vidas
 And resultado "Sigo vivo"
 
-Scenario: Arriesgo una "X" y pierdo 1 vida
+Scenario: Arriesgo una "X" teniendo 6 vidas entonces me quedo con 5 vidas
 Given la palabra secreta es "auto"
 And tengo 6 vidas
 And estado actual es "****"
@@ -17,6 +17,53 @@ When arriesgo "x"
 Then estado es "****"
 And me quedan 5 vidas
 And resultado "Sigo vivo"
+
+Scenario: Arriesgo una "X" teniendo 5 vidas entonces me quedo con 4 vidas
+Given la palabra secreta es "auto"
+And tengo 5 vidas
+And estado actual es "****"
+When arriesgo "x"
+Then estado es "****"
+And me quedan 4 vidas
+And resultado "Sigo vivo"
+
+Scenario: Arriesgo una "X" teniendo 4 vidas entonces me quedo con 3 vidas
+Given la palabra secreta es "auto"
+And tengo 4 vidas
+And estado actual es "****"
+When arriesgo "x"
+Then estado es "****"
+And me quedan 3 vidas
+And resultado "Sigo vivo"
+
+
+Scenario: Arriesgo una "X" teniendo 3 vidas entonces me quedo con 2 vidas
+Given la palabra secreta es "auto"
+And tengo 3 vidas
+And estado actual es "****"
+When arriesgo "x"
+Then estado es "****"
+And me quedan 2 vidas
+And resultado "Sigo vivo"
+
+
+Scenario: Arriesgo una "X" teniendo 2 vidas entonces me quedo con 1 vidas
+Given la palabra secreta es "auto"
+And tengo 2 vidas
+And estado actual es "****"
+When arriesgo "x"
+Then estado es "****"
+And me quedan 1 vidas
+And resultado "Sigo vivo"
+
+Scenario: Arriesgo una "X" teniendo 1 vida entonces me quedo con 0 vidas y pierdo el juego
+Given la palabra secreta es "auto"
+And tengo 1 vidas
+And estado actual es "****"
+When arriesgo "X"
+Then estado es "****"
+And me quedan 0 vidas
+And resultado "El juego ha terminado. Estas ahorcado"
 
 Scenario: Arriesgo una "A" y asierto 1 letra
 Given la palabra secreta es "auto"
@@ -35,15 +82,6 @@ When arriesgo "a"
 Then estado es "a***"
 And me quedan 7 vidas
 And resultado "Sigo vivo"
-
-Scenario: Arriesgo una "w" teniendo 1 vida entonces pierdo el juego
-Given la palabra secreta es "auto"
-And tengo 1 vidas
-And estado actual es "****"
-When arriesgo "w"
-Then estado es "****"
-And me quedan 0 vidas
-And resultado "El juego ha terminado. Estas ahorcado"
 
 Scenario: Arriesgo una "o" y asierto 1 letra más
 Given la palabra secreta es "auto"
