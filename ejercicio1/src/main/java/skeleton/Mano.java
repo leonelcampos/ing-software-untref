@@ -8,8 +8,8 @@ public interface Mano {
 
 	int compararConPapel(Mano mano);
 	
-	int getNumeroDeJugador();
-
 	int compararConTijera(Mano mano);
+
+	int getNumeroDeJugador();
 
 }

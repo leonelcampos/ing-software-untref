@@ -2,5 +2,8 @@
 set -e
 cd ejercicio1
 mvn test
+cd ..
+cd ejercicio2
+mvn test
 
 
