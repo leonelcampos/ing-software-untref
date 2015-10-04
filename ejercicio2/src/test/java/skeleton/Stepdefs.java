@@ -31,6 +31,24 @@ public class Stepdefs {
 			ahorcado.arriesgarLetra(LETRA_PARA_ERRAR);
 		}
 	}
+	
+	@Given("^estado actual es \"(.*?)\"$")
+	public void estado_actual_es(String estado) throws Throwable {
+		
+		modificarPalabraInicial(estado);
+		
+		Assert.assertEquals(estado, ahorcado.getEstadoPalabra());
+	}
+
+	private void modificarPalabraInicial(String estado) {
+		char[] caracteres = estado.toCharArray();
+		
+		for(int i = 0; i < estado.length(); i++){
+			if(caracteres[i] != '*'){
+				ahorcado.arriesgarLetra(String.valueOf(caracteres[i]));
+			}
+		}
+	}
 
 	@When("^arriesgo \"(.*?)\"$")
 	public void arriesgo(String letra) throws Throwable {
@@ -49,7 +67,7 @@ public class Stepdefs {
 	
 	@Then("^resultado \"(.*?)\"$")
 	public void resultado(String resultado) throws Throwable {
-		 Assert.assertEquals(resultado, ahorcado.getEstado());
+		 Assert.assertEquals(resultado, ahorcado.getEstadoJuego());
 	}
 
 

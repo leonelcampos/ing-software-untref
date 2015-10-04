@@ -32,7 +32,7 @@ public class Ahorcado {
 		return estado.getVidas();
 	}
 	
-	public String getEstado(){
+	public String getEstadoJuego(){
 		return estado.getEstado();
 	}
 }
