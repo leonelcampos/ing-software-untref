@@ -44,3 +44,13 @@ When arriesgo "o"
 Then estado es "a**o"
 And me quedan 1 vidas
 And resultado "Sigo vivo"
+
+
+Scenario: Arriesgo una "t" 
+Given la palabra secreta es "auto"
+And tengo 1 vidas
+And estado actual es "a**o"
+When arriesgo "t"
+Then estado es "a*to"
+And me quedan 1 vidas
+And resultado "Sigo vivo"
