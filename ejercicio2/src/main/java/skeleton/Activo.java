@@ -27,11 +27,9 @@ public class Activo implements AhorcadoState{
 	}
 	
 	public void arriesgarLetra(Ahorcado ahorcado, String letra){
-		int posicionLetraEnPalabraSecreta = palabraSecreta.indexOf(letra);
-		
-		if(existeLetraEnPalabraSecreta(posicionLetraEnPalabraSecreta)){
+		if(palabraSecreta.contains(letra.toLowerCase())){
 				
-			modificarEstadoPalabra(posicionLetraEnPalabraSecreta, letra.toLowerCase());
+			modificarEstadoPalabra(letra.toLowerCase());
 		}else{
 			decrementarVidas();
 		}
@@ -43,16 +41,16 @@ public class Activo implements AhorcadoState{
 		}
 	}
 
-	private void modificarEstadoPalabra(int posicionLetraEnPalabraSecreta, String letra) {
-		char[] caracteres = palabraSecreta.toCharArray();
-
-		caracteres[posicionLetraEnPalabraSecreta] = letra.charAt(0);
-
-		palabraSecreta = new String(caracteres); 
-	}
-
-	private boolean existeLetraEnPalabraSecreta(int posicionLetraEnPalabraSecreta) {
-		return posicionLetraEnPalabraSecreta > -1;
+	private void modificarEstadoPalabra(String letra) {
+		char[] caracteres = estadoPalabra.toCharArray();
+		
+		for (int i = 0; i< palabraSecreta.length(); i++) {
+			if(palabraSecreta.charAt(i) == letra.charAt(0)){
+				caracteres[i] = letra.charAt(0);
+			}
+		}
+		
+		estadoPalabra = new String(caracteres); 
 	}
 
 	public int getVidas() {

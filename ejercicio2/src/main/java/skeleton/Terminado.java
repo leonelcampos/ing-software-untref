@@ -22,7 +22,6 @@ public class Terminado implements AhorcadoState{
 			System.out.println("El juego ha terminado. Has perdido!");
 			System.out.println("La palabra secreta era "+palabraSecreta );
 		}
-		
 	}
 
 	public String getEstadoPalabra() {

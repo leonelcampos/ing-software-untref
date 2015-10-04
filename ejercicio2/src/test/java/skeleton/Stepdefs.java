@@ -17,7 +17,7 @@ public class Stepdefs {
 	
 	@Given("^tengo (\\d+) vidas$")
 	public void tengo_vidas(int vidas) throws Throwable {
-		 Assert.assertEquals(7, ahorcado.getVidas());
+		 Assert.assertEquals(vidas, ahorcado.getVidas());
 	}
 
 	@When("^arriesgo \"(.*?)\"$")
