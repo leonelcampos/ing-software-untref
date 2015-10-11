@@ -1,3 +1,4 @@
+
 package skeleton;
 
 import org.junit.Assert;
@@ -30,5 +31,19 @@ public class Stepdefs {
 	public void barco_posicionado_exitosamente() throws Throwable {
 		Assert.assertTrue(resultadoPosicionamiento);
 	}
+	
+	@Given("^hay un barco en posicion \\((\\d+),(\\d+)\\)$")
+	public void hay_un_barco_en_posicion(int posX, int posY) throws Throwable {
+		batallaNaval = new BatallaNaval();
+		resultadoPosicionamiento = batallaNaval.ubicarBarcoEn("LANCHA", posX, posY, "VERTICAL");
+	}
+
+	@Then("^posicion ocupada no se puede ubicar el barco alli$")
+	public void posicion_ocupada_no_se_puede_ubicar_el_barco_alli() throws Throwable {
+		Assert.assertFalse(resultadoPosicionamiento);
+	}
+
+	
 
 }
+
