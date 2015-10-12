@@ -47,15 +47,37 @@ public class TableroTest {
 		
 		Barco destructor = fabricaBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
 		PosicionTablero posicionInicioDestructor = new PosicionTablero(2, 2);
-		PosicionTablero posicionFinalDestructor = new PosicionTablero(2, 4);
+		PosicionTablero posicionFinalDestructor = new PosicionTablero(2, 3);
 		
 		tablero.posicionarBarco(posicionInicioDestructor, posicionFinalDestructor, TipoPosicionamiento.VERTICAL, destructor);
 		
-		Barco acorazado = fabricaBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
-		PosicionTablero posicionInicioAcorazado = new PosicionTablero(2, 3);
+		Barco acorazado = fabricaBarcos.obtenerBarco(TipoBarcos.ACORAZADO);
+		PosicionTablero posicionInicioAcorazado = new PosicionTablero(2, 2);
 		PosicionTablero posicionFinalAcorazado = new PosicionTablero(2, 4);
 		
 		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicioAcorazado, posicionFinalAcorazado, TipoPosicionamiento.VERTICAL, acorazado);
+		
+		Assert.assertFalse(resultadoPosicionamiento);
+	}
+	
+	
+	@Test
+	public void CuandoPosicionoUnBarcoCuyaCoordenadaIntermediaEstaOcupadaEntoncesElBarcoNoSeGudarda(){
+		
+		Tablero tablero = new Tablero();
+		FabricaBarcos fabricaBarcos = new FabricaBarcos();
+		
+		Barco lancha = fabricaBarcos.obtenerBarco(TipoBarcos.LANCHA);
+		PosicionTablero posicionInicioLancha = new PosicionTablero(2, 4);
+		PosicionTablero posicionFinalLancha = new PosicionTablero(2, 4);
+		
+		tablero.posicionarBarco(posicionInicioLancha, posicionFinalLancha, TipoPosicionamiento.VERTICAL, lancha);
+		
+		Barco destructor = fabricaBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
+		PosicionTablero posicionInicioDestructor = new PosicionTablero(2, 3);
+		PosicionTablero posicionFinalDestructor = new PosicionTablero(2, 5);
+		
+		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicioDestructor, posicionFinalDestructor, TipoPosicionamiento.VERTICAL, destructor);
 		
 		Assert.assertFalse(resultadoPosicionamiento);
 	}

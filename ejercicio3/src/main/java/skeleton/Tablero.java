@@ -25,17 +25,8 @@ public class Tablero {
 	public boolean posicionarBarco(PosicionTablero posicionInicio, PosicionTablero posicionFinal, TipoPosicionamiento tipoPosicionamiento,
 			Barco barco) {
 
-		boolean posicionamientoExitoso = true;
-
-		posicionamientoExitoso = validarPosicionamientoExitoso(posicionInicio, posicionFinal);
-
-		return posicionamientoExitoso;
-	}
-
-	private boolean validarPosicionamientoExitoso(PosicionTablero posicionInicio, PosicionTablero posicionFin) {
-
-		for (int i = posicionInicio.getPosicionX() - 1; i < posicionFin.getPosicionX(); i++) {
-			for (int j = posicionInicio.getPosicionY() - 1; j < posicionFin.getPosicionY(); j++) {
+		for (int i = posicionInicio.getPosicionX() - 1; i < posicionFinal.getPosicionX(); i++) {
+			for (int j = posicionInicio.getPosicionY() - 1; j < posicionFinal.getPosicionY(); j++) {
 
 				if (tablero[i][j] == 0) {
 					tablero[i][j] = 1;

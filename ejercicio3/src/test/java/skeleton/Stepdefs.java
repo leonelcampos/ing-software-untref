@@ -43,7 +43,5 @@ public class Stepdefs {
 		Assert.assertFalse(resultadoPosicionamiento);
 	}
 
-	
-
 }
 
