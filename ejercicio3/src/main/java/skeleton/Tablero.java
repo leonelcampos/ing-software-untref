@@ -1,5 +1,11 @@
 package skeleton;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import skeleton.barcos.Barco;
 import skeleton.posicion.PosicionTablero;
 import skeleton.posicion.TipoPosicionamiento;
@@ -8,8 +14,11 @@ public class Tablero {
 
 	private Integer mapa[][];
 	
+	private Map<Barco, List<PosicionTablero>> posicionesDeBarcos;
+	
 	public Tablero() {
 		mapa = new Integer[10][10];
+		posicionesDeBarcos = new HashMap<>();
 		inicializarTablero();
 	}
 
@@ -27,22 +36,28 @@ public class Tablero {
 
 		boolean coordenadasValidas = validarCoordenadas(posicionInicio, posicionFinal);
 		boolean posicionamientoExitoso = true;
+		List<PosicionTablero> posicionesBarco = new ArrayList<PosicionTablero>();
 		
 		if (coordenadasValidas) {
 
-			posicionamientoExitoso = guardarPosicionBarco(posicionInicio, posicionFinal);
+			posicionamientoExitoso = guardarPosicionBarco(posicionInicio, posicionFinal, posicionesBarco);
+		}
+		
+		if(posicionamientoExitoso){
+			posicionesDeBarcos.put(barco, posicionesBarco);
 		}
 		
 		return coordenadasValidas && posicionamientoExitoso;
 	}
 
-	private boolean guardarPosicionBarco(PosicionTablero posicionInicio, PosicionTablero posicionFinal) {
+	private boolean guardarPosicionBarco(PosicionTablero posicionInicio, PosicionTablero posicionFinal, List<PosicionTablero> posicionesBarco) {
 		for (int i = posicionInicio.getPosicionX() - 1; i < posicionFinal.getPosicionX(); i++) {
 			for (int j = posicionInicio.getPosicionY() - 1; j < posicionFinal.getPosicionY(); j++) {
 
 				if (mapa[i][j] == 0) {
 					mapa[i][j] = 1;
 					
+					posicionesBarco.add(new PosicionTablero(i+1, j+1));
 				} else {
 					return false;
 				}
@@ -64,7 +79,25 @@ public class Tablero {
 		if(posicionLibre(posicion)){
 			return false; 
 		}else{
+			agregarDañoABarcoEnPosicion(posicion);
 			return true;
+		}
+		
+	}
+
+	private void agregarDañoABarcoEnPosicion(PosicionTablero posicion) {
+		for (Entry<Barco, List<PosicionTablero>> barco : posicionesDeBarcos.entrySet()) {
+			for (PosicionTablero posicionBarco : barco.getValue()) {
+				infringirDañoABarco(posicion, barco, posicionBarco);
+				
+			}
+		}
+	}
+
+	private void infringirDañoABarco(PosicionTablero posicion, Entry<Barco, List<PosicionTablero>> barco,
+			PosicionTablero posicionBarco) {
+		if(posicionBarco.equals(posicion)){
+			barco.getKey().aumentarDaño();
 		}
 	}
 
@@ -87,4 +120,5 @@ public class Tablero {
 		return posicionInicio.getPosicionX() < 1 || posicionInicio.getPosicionY() < 1 || posicionFin.getPosicionX() < 1
 				|| posicionFin.getPosicionY() < 1;
 	}
+	
 }

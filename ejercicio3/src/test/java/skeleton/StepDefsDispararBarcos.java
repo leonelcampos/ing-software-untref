@@ -14,7 +14,6 @@ public class StepDefsDispararBarcos {
 	@Given("^no hay barcos en posicion \\((\\d+),(\\d+)\\)$")
 	public void no_hay_barcos_en_posicion(int posX, int posY) throws Throwable {
 		batallaNaval = new BatallaNaval();
-		
 		Assert.assertTrue(batallaNaval.laPosicionEstaLibre(posX, posY));
 	}
 
@@ -26,5 +25,17 @@ public class StepDefsDispararBarcos {
 	@Then("^el disparo dio en el agua$")
 	public void el_disparo_dio_en_el_agua() throws Throwable {
 		Assert.assertFalse(resultadoDelDisparo);
+	}
+	
+	@Given("^hay un barco en posicion (\\d+),(\\d+)$")
+	public void hay_un_barco_en_posicion(int posX, int posY) throws Throwable {
+		batallaNaval = new BatallaNaval();
+		boolean resultadoPosicionamiento = batallaNaval.ubicarBarcoEn("LANCHA", posX, posY, "VERTICAL");
+		Assert.assertTrue(resultadoPosicionamiento);
+	}
+	
+	@Then("^el disparo dio en el blanco$")
+	public void el_disparo_dio_en_el_blanco() throws Throwable {
+		Assert.assertTrue(resultadoDelDisparo);
 	}
 }

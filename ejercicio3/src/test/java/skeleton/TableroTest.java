@@ -107,6 +107,25 @@ public class TableroTest {
 		
 		Assert.assertFalse(resultadoDisparo);
 	}
+	
+	@Test
+	public void cuandoDisparoAUnaPosicionOcupadaPorUnBarcoEntoncesElBarcoSufreUnPuntoDeDaño(){
+		Tablero tablero = new Tablero();
+		
+		CreadorBarcos creadorBarcos = new CreadorBarcos();
+		
+		Barco destructor = creadorBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
+		PosicionTablero posicionInicioDestructor = new PosicionTablero(4, 2);
+		PosicionTablero posicionFinalDestructor = new PosicionTablero(6, 2);
+		
+		tablero.posicionarBarco(posicionInicioDestructor, posicionFinalDestructor, TipoPosicionamiento.HORIZONTAL, destructor);
+		
+		PosicionTablero posicionDeDisparo = new PosicionTablero(4,2);
+		boolean resultadoDisparo = tablero.dispararEnPosicion(posicionDeDisparo);
+		
+		Assert.assertTrue(resultadoDisparo);
+		Assert.assertEquals(1, destructor.posicionesDañadas());
+	}
 
 }
 

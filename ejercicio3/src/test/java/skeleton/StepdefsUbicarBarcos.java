@@ -57,10 +57,9 @@ public class StepdefsUbicarBarcos {
 	public void la_posicion_elegida_para_el_barco_sobrepasa_los_limites_del_tablero(){
 		acertarPosicionamientoErroneo();
 	}
-
+	
 	private void acertarPosicionamientoErroneo() {
 		Assert.assertFalse(resultadoPosicionamiento);
 	}
-
 }
 
