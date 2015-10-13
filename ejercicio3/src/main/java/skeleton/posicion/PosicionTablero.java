@@ -22,4 +22,15 @@ public class PosicionTablero {
 		return posicionY;
 	}
 	
+	public boolean equals(Object a) {
+		boolean respuesta= false;
+		if(a instanceof PosicionTablero){
+			PosicionTablero posicionTablero = (PosicionTablero) a; 
+			if(posicionTablero.getPosicionX() == this.getPosicionX() && posicionTablero.getPosicionY() == this.getPosicionY()){
+				respuesta= true;
+			};
+		}
+		return respuesta;
+	}
+	
 }
