@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import skeleton.barcos.Barco;
 import skeleton.posicion.PosicionTablero;
@@ -31,8 +30,9 @@ public class Tablero {
 		}
 	}
 
-	public boolean posicionarBarco(PosicionTablero posicionInicio, PosicionTablero posicionFinal,
-			TipoPosicionamiento tipoPosicionamiento, Barco barco) {
+	public boolean posicionarBarco(PosicionTablero posicionInicio, TipoPosicionamiento tipoPosicionamiento, Barco barco) {
+		
+		PosicionTablero posicionFinal = generarPosicionFin(posicionInicio, tipoPosicionamiento, barco);
 
 		boolean coordenadasValidas = validarCoordenadas(posicionInicio, posicionFinal);
 		boolean posicionamientoExitoso = true;
@@ -48,6 +48,22 @@ public class Tablero {
 		}
 		
 		return coordenadasValidas && posicionamientoExitoso;
+	}
+	
+	
+	private PosicionTablero generarPosicionFin(PosicionTablero posicionInicio, TipoPosicionamiento tipoPosicionamiento,
+			Barco barco) {
+
+		PosicionTablero posicionFin;
+
+		if (tipoPosicionamiento.equals(TipoPosicionamiento.HORIZONTAL)) {
+			posicionFin = new PosicionTablero(posicionInicio.getPosicionX() + barco.getTamanio()-1,
+					posicionInicio.getPosicionY());
+		} else {
+			posicionFin = new PosicionTablero(posicionInicio.getPosicionX(),
+					posicionInicio.getPosicionY() + barco.getTamanio()-1);
+		}
+		return posicionFin;
 	}
 
 	private boolean guardarPosicionBarco(PosicionTablero posicionInicio, PosicionTablero posicionFinal, List<PosicionTablero> posicionesBarco) {
@@ -86,18 +102,36 @@ public class Tablero {
 	}
 
 	private void agregarDañoABarcoEnPosicion(PosicionTablero posicion) {
-		for (Entry<Barco, List<PosicionTablero>> barco : posicionesDeBarcos.entrySet()) {
-			for (PosicionTablero posicionBarco : barco.getValue()) {
+		for (Barco barco : posicionesDeBarcos.keySet()) {
+			for (PosicionTablero posicionBarco : posicionesDeBarcos.get(barco)) {
 				infringirDañoABarco(posicion, barco, posicionBarco);
 				
+				eliminarBarcoSiEstaHundido(barco);
 			}
 		}
 	}
 
-	private void infringirDañoABarco(PosicionTablero posicion, Entry<Barco, List<PosicionTablero>> barco,
+	private void eliminarBarcoSiEstaHundido(Barco barco) {
+		
+		if(barco.posicionesDañadas() == barco.getTamanio()){
+			List<PosicionTablero> posicionesARemover = posicionesDeBarcos.get(barco);
+			
+			posicionesDeBarcos.remove(barco);
+			
+			removerBarcoDelMapa(posicionesARemover);
+		}
+	}
+
+	private void removerBarcoDelMapa(List<PosicionTablero> posicionesARemover) {
+		for (PosicionTablero posicion: posicionesARemover) {
+			mapa[posicion.getPosicionX()-1][posicion.getPosicionY()-1] = 0;
+		}
+	}
+
+	private void infringirDañoABarco(PosicionTablero posicion, Barco barco,
 			PosicionTablero posicionBarco) {
 		if(posicionBarco.equals(posicion)){
-			barco.getKey().aumentarDaño();
+			barco.aumentarDaño();
 		}
 	}
 
@@ -120,5 +154,6 @@ public class Tablero {
 		return posicionInicio.getPosicionX() < 1 || posicionInicio.getPosicionY() < 1 || posicionFin.getPosicionX() < 1
 				|| posicionFin.getPosicionY() < 1;
 	}
+	
 	
 }

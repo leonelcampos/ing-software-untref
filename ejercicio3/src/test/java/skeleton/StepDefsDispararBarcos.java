@@ -19,23 +19,29 @@ public class StepDefsDispararBarcos {
 
 	@When("^disparo a la posicion \\((\\d+),(\\d+)\\)$")
 	public void disparo_a_la_posicion(int posX, int posY) throws Throwable {
-		resultadoDelDisparo = batallaNaval.dispararEnLaPosicion(posX, posY);
+	    resultadoDelDisparo = batallaNaval.dispararEnLaPosicion(posX, posY);
 	}
-
+	
+	@Given("^Existe un barco en posicion \\((\\d+),(\\d+)\\)$")
+	public void existe_un_barco_en_posicion(int posX, int posY) throws Throwable {
+		batallaNaval = new BatallaNaval();
+		System.out.println(posX+posY);
+		boolean resultadoPosicionamiento = batallaNaval.ubicarBarcoEn("LANCHA", posX, posY, "VERTICAL");
+		Assert.assertTrue(resultadoPosicionamiento);
+	}
+	
 	@Then("^el disparo dio en el agua$")
 	public void el_disparo_dio_en_el_agua() throws Throwable {
 		Assert.assertFalse(resultadoDelDisparo);
 	}
 	
-	@Given("^hay un barco en posicion (\\d+),(\\d+)$")
-	public void hay_un_barco_en_posicion(int posX, int posY) throws Throwable {
-		batallaNaval = new BatallaNaval();
-		boolean resultadoPosicionamiento = batallaNaval.ubicarBarcoEn("LANCHA", posX, posY, "VERTICAL");
-		Assert.assertTrue(resultadoPosicionamiento);
-	}
-	
 	@Then("^el disparo dio en el blanco$")
 	public void el_disparo_dio_en_el_blanco() throws Throwable {
 		Assert.assertTrue(resultadoDelDisparo);
+	}
+	
+	@Then("^el barco desaparece de la posicion \\((\\d+),(\\d+)\\)$")
+	public void el_barco_desaparece_de_la_posicion(int posX, int posY) throws Throwable {
+		Assert.assertTrue(batallaNaval.laPosicionEstaLibre(posX, posY));
 	}
 }

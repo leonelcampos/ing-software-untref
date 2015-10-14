@@ -21,9 +21,8 @@ public class TableroTest {
 		Barco destructor = creadorBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
 		
 		PosicionTablero posicionInicio = new PosicionTablero(2, 2);
-		PosicionTablero posicionFinal = new PosicionTablero(2, 4);
 		
-		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicio, posicionFinal, TipoPosicionamiento.VERTICAL, destructor);
+		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicio, TipoPosicionamiento.VERTICAL, destructor);
 		
 		PosicionTablero posicionBarco1 = new PosicionTablero(2, 2);
 		PosicionTablero posicionBarco2 = new PosicionTablero(2, 3);
@@ -47,15 +46,13 @@ public class TableroTest {
 		
 		Barco destructor = creadorBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
 		PosicionTablero posicionInicioDestructor = new PosicionTablero(2, 2);
-		PosicionTablero posicionFinalDestructor = new PosicionTablero(2, 3);
 		
-		tablero.posicionarBarco(posicionInicioDestructor, posicionFinalDestructor, TipoPosicionamiento.VERTICAL, destructor);
+		tablero.posicionarBarco(posicionInicioDestructor, TipoPosicionamiento.VERTICAL, destructor);
 		
 		Barco acorazado = creadorBarcos.obtenerBarco(TipoBarcos.ACORAZADO);
 		PosicionTablero posicionInicioAcorazado = new PosicionTablero(2, 2);
-		PosicionTablero posicionFinalAcorazado = new PosicionTablero(2, 4);
 		
-		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicioAcorazado, posicionFinalAcorazado, TipoPosicionamiento.VERTICAL, acorazado);
+		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicioAcorazado, TipoPosicionamiento.VERTICAL, acorazado);
 		
 		Assert.assertFalse(resultadoPosicionamiento);
 	}
@@ -69,15 +66,13 @@ public class TableroTest {
 		
 		Barco lancha = creadorBarcos.obtenerBarco(TipoBarcos.LANCHA);
 		PosicionTablero posicionInicioLancha = new PosicionTablero(2, 4);
-		PosicionTablero posicionFinalLancha = new PosicionTablero(2, 4);
 		
-		tablero.posicionarBarco(posicionInicioLancha, posicionFinalLancha, TipoPosicionamiento.VERTICAL, lancha);
+		tablero.posicionarBarco(posicionInicioLancha, TipoPosicionamiento.VERTICAL, lancha);
 		
 		Barco destructor = creadorBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
 		PosicionTablero posicionInicioDestructor = new PosicionTablero(2, 3);
-		PosicionTablero posicionFinalDestructor = new PosicionTablero(2, 5);
 		
-		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicioDestructor, posicionFinalDestructor, TipoPosicionamiento.VERTICAL, destructor);
+		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicioDestructor, TipoPosicionamiento.VERTICAL, destructor);
 		
 		Assert.assertFalse(resultadoPosicionamiento);
 	}
@@ -90,9 +85,8 @@ public class TableroTest {
 		
 		Barco destructor = creadorBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
 		PosicionTablero posicionInicioDestructor = new PosicionTablero(11, 2);
-		PosicionTablero posicionFinalDestructor = new PosicionTablero(11, 4);
 		
-		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicioDestructor, posicionFinalDestructor, TipoPosicionamiento.HORIZONTAL, destructor);
+		boolean resultadoPosicionamiento = tablero.posicionarBarco(posicionInicioDestructor, TipoPosicionamiento.HORIZONTAL, destructor);
 		
 		Assert.assertFalse(resultadoPosicionamiento);
 	}
@@ -116,15 +110,53 @@ public class TableroTest {
 		
 		Barco destructor = creadorBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
 		PosicionTablero posicionInicioDestructor = new PosicionTablero(4, 2);
-		PosicionTablero posicionFinalDestructor = new PosicionTablero(6, 2);
 		
-		tablero.posicionarBarco(posicionInicioDestructor, posicionFinalDestructor, TipoPosicionamiento.HORIZONTAL, destructor);
+		tablero.posicionarBarco(posicionInicioDestructor, TipoPosicionamiento.HORIZONTAL, destructor);
 		
 		PosicionTablero posicionDeDisparo = new PosicionTablero(4,2);
 		boolean resultadoDisparo = tablero.dispararEnPosicion(posicionDeDisparo);
 		
 		Assert.assertTrue(resultadoDisparo);
 		Assert.assertEquals(1, destructor.posicionesDañadas());
+	}
+	
+	@Test
+	public void cuandoDisparoAUnaPosicionOcupadaPorUnBarcoEntoncesLaPosicionSigueOcupada(){
+		Tablero tablero = new Tablero();
+		
+		CreadorBarcos creadorBarcos = new CreadorBarcos();
+		
+		Barco destructor = creadorBarcos.obtenerBarco(TipoBarcos.DESTRUCTOR);
+		PosicionTablero posicionInicioDestructor = new PosicionTablero(4, 2);
+
+		tablero.posicionarBarco(posicionInicioDestructor, TipoPosicionamiento.HORIZONTAL, destructor);
+		
+		PosicionTablero posicionDeDisparo = new PosicionTablero(4,2);
+		tablero.dispararEnPosicion(posicionDeDisparo);
+		
+		Assert.assertFalse(tablero.posicionLibre(posicionDeDisparo));
+	}
+
+	
+	@Test
+	public void cuandoDisparoALaUltimaPosicionNoDaniadDeUnBarcoEntoncesEsEliminadoYBorradoDelMapa(){
+		Tablero tablero = new Tablero();
+		
+		CreadorBarcos creadorBarcos = new CreadorBarcos();
+		
+		Barco acorazado = creadorBarcos.obtenerBarco(TipoBarcos.ACORAZADO);
+		PosicionTablero posicionInicioDestructor = new PosicionTablero(4, 2);
+		
+		tablero.posicionarBarco(posicionInicioDestructor, TipoPosicionamiento.HORIZONTAL, acorazado);
+		
+		PosicionTablero posicionDeDisparo1 = new PosicionTablero(4,2);
+		tablero.dispararEnPosicion(posicionDeDisparo1);
+		
+		PosicionTablero posicionDeDisparo2 = new PosicionTablero(5,2);
+		tablero.dispararEnPosicion(posicionDeDisparo2);
+		
+		Assert.assertTrue(tablero.posicionLibre(posicionDeDisparo1));
+		Assert.assertTrue(tablero.posicionLibre(posicionDeDisparo2));
 	}
 
 }

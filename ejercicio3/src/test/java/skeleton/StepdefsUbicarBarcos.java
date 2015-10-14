@@ -26,7 +26,6 @@ public class StepdefsUbicarBarcos {
 		resultadoPosicionamiento = batallaNaval.ubicarBarcoEn(tipoDeBarco, posX, posY, posicionamiento);
 	}
 
-
 	@Then("^barco posicionado exitosamente$")
 	public void barco_posicionado_exitosamente(){
 		Assert.assertTrue(resultadoPosicionamiento);

@@ -22,24 +22,8 @@ public class BatallaNaval {
 		TipoPosicionamiento posicionamiento = TipoPosicionamiento.valueOf(tipoPosicionamiento.toUpperCase());
 		
 		PosicionTablero posicionInicial = new PosicionTablero(posX, posY);
-		PosicionTablero posicionFinal = generarPosicionFin(posicionInicial, posicionamiento, barco);
 		
-		return tablero.posicionarBarco(posicionInicial, posicionFinal, posicionamiento, barco);
-	}
-	
-	private PosicionTablero generarPosicionFin(PosicionTablero posicionInicio, TipoPosicionamiento tipoPosicionamiento,
-			Barco barco) {
-
-		PosicionTablero posicionFin;
-
-		if (tipoPosicionamiento.equals(TipoPosicionamiento.HORIZONTAL)) {
-			posicionFin = new PosicionTablero(posicionInicio.getPosicionX() + barco.getTamanio(),
-					posicionInicio.getPosicionY());
-		} else {
-			posicionFin = new PosicionTablero(posicionInicio.getPosicionX(),
-					posicionInicio.getPosicionY() + barco.getTamanio());
-		}
-		return posicionFin;
+		return tablero.posicionarBarco(posicionInicial, posicionamiento, barco);
 	}
 	
 	public boolean laPosicionEstaLibre(int posX, int posY){
