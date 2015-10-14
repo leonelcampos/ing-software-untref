@@ -17,7 +17,7 @@ public class Tablero {
 	
 	public Tablero() {
 		mapa = new Integer[10][10];
-		posicionesDeBarcos = new HashMap<>();
+		posicionesDeBarcos = new HashMap<Barco, List<PosicionTablero>>();
 		inicializarTablero();
 	}
 
