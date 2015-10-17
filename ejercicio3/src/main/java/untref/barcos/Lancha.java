@@ -1,12 +1,13 @@
-package skeleton.barcos;
+package untref.barcos;
 
-public class Destructor implements Barco{
+
+public class Lancha implements Barco{
 
 	private int tamanio; 
 	private int posicionesDañadas;
 	
-	public Destructor(){
-		this.tamanio = 3;
+	public Lancha(){
+		this.tamanio = 1;
 		this.posicionesDañadas = 0;
 	}
 	

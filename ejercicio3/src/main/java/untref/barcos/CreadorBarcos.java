@@ -1,12 +1,12 @@
-package skeleton.barcos;
+package untref.barcos;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import skeleton.barcos.factory.AcorazadoFactory;
-import skeleton.barcos.factory.BarcoFactory;
-import skeleton.barcos.factory.DestructorFactory;
-import skeleton.barcos.factory.LanchaFactory;
+import untref.barcos.factory.AcorazadoFactory;
+import untref.barcos.factory.BarcoFactory;
+import untref.barcos.factory.DestructorFactory;
+import untref.barcos.factory.LanchaFactory;
 
 public class CreadorBarcos {
 	

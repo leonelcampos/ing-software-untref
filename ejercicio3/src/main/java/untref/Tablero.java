@@ -1,13 +1,13 @@
-package skeleton;
+package untref;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import skeleton.barcos.Barco;
-import skeleton.posicion.PosicionTablero;
-import skeleton.posicion.TipoPosicionamiento;
+import untref.barcos.Barco;
+import untref.posicion.PosicionTablero;
+import untref.posicion.TipoPosicionamiento;
 
 public class Tablero {
 

@@ -1,7 +1,7 @@
-package skeleton.barcos.factory;
+package untref.barcos.factory;
 
-import skeleton.barcos.Barco;
-import skeleton.barcos.Lancha;
+import untref.barcos.Barco;
+import untref.barcos.Lancha;
 
 public class LanchaFactory implements BarcoFactory{
 	

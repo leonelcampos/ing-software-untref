@@ -1,7 +1,7 @@
-package skeleton.barcos.factory;
+package untref.barcos.factory;
 
-import skeleton.barcos.Barco;
-import skeleton.barcos.Destructor;
+import untref.barcos.Barco;
+import untref.barcos.Destructor;
 
 public class DestructorFactory implements BarcoFactory{
 	

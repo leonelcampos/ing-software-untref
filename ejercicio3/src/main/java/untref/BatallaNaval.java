@@ -1,10 +1,10 @@
-package skeleton;
+package untref;
 
-import skeleton.barcos.Barco;
-import skeleton.barcos.CreadorBarcos;
-import skeleton.barcos.TipoBarcos;
-import skeleton.posicion.PosicionTablero;
-import skeleton.posicion.TipoPosicionamiento;
+import untref.barcos.Barco;
+import untref.barcos.CreadorBarcos;
+import untref.barcos.TipoBarcos;
+import untref.posicion.PosicionTablero;
+import untref.posicion.TipoPosicionamiento;
 
 public class BatallaNaval {
 	

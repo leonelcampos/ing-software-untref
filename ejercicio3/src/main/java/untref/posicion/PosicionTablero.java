@@ -1,4 +1,4 @@
-package skeleton.posicion;
+package untref.posicion;
 
 
 public class PosicionTablero {

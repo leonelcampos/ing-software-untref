@@ -1,4 +1,4 @@
-package skeleton.barcos;
+package untref.barcos;
 
 public enum TipoBarcos {
 	
